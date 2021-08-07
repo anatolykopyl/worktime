@@ -12,10 +12,12 @@
       <div
         class="category"
         v-for="category in categories" :key="category"
-        :style="{ background: stringToColor(category) }"
+        :style="{background: stringToColor(category)}"
+        :class="{selected: selectedCategory===category}"
+        @click="selectCategory(category)"
       >
         {{ category }}
-        <span @click="removeCategory(category)">×</span>
+        <span @click.stop="removeCategory(category)">×</span>
       </div>
     </div>
   </div>
@@ -29,6 +31,7 @@ export default {
   data() {
     return {
       newCategory: '+',
+      selectedCategory: undefined,
     };
   },
   methods: {
@@ -38,6 +41,9 @@ export default {
     },
     removeCategory(category) {
       this.$store.commit('removeCategory', category);
+      if (category === this.selectedCategory) {
+        this.selectedCategory();
+      }
     },
     blurInput(event) {
       this.newCategory = '+';
@@ -45,6 +51,14 @@ export default {
     },
     stringToColor(str) {
       return toColor(str);
+    },
+    selectCategory(category) {
+      if (this.selectedCategory === category) {
+        this.selectedCategory = undefined;
+      } else {
+        this.selectedCategory = category;
+      }
+      this.$emit('select', this.selectedCategory);
     },
   },
   computed: {
@@ -88,6 +102,11 @@ export default {
 
     .category {
       margin-right: 16px;
+      border: 3px solid transparent;
+
+      &.selected {
+        border: 3px double $dark;
+      }
     }
   }
 }

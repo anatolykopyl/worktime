@@ -7,7 +7,7 @@
       @keypress.enter="addTask"
     />
     <Task
-      v-for="task in tasks"
+      v-for="task in filteredTasks"
       :key="task.startedAt"
       :task=task
     />
@@ -22,6 +22,9 @@ import Task from './Task.vue';
 export default {
   components: {
     Task,
+  },
+  props: {
+    selectedCategory: String,
   },
   data() {
     return {
@@ -38,6 +41,12 @@ export default {
     ...mapState({
       tasks: (state) => state.tasks,
     }),
+    filteredTasks() {
+      if (this.selectedCategory) {
+        return this.tasks.filter((task) => task.category === this.selectedCategory);
+      }
+      return this.tasks;
+    },
   },
 };
 </script>

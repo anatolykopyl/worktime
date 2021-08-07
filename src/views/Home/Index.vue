@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <TheCategoryBar />
-    <TheTaskList />
+    <TheCategoryBar @select="select" />
+    <TheTaskList :selectedCategory="selectedCategory" />
   </div>
 </template>
 
@@ -14,6 +14,16 @@ export default {
   components: {
     TheCategoryBar,
     TheTaskList,
+  },
+  data() {
+    return {
+      selectedCategory: undefined,
+    };
+  },
+  methods: {
+    select(category) {
+      this.selectedCategory = category;
+    },
   },
 };
 </script>

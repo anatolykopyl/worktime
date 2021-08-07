@@ -37,7 +37,8 @@ export default {
   background: $light;
   padding: 48px 12px 12px 12px;
   border-radius: 16px;
-  width: max-content;
+  min-width: 200px;
+  max-width: max-content;
   left: 50%;
   top: -12px;
   z-index: 100;

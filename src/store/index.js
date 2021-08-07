@@ -18,6 +18,11 @@ export default createStore({
     },
     removeCategory(state, category) {
       state.categories = state.categories.filter((element) => element !== category);
+      state.tasks = state.tasks.map((task) => {
+        const newTask = task;
+        if (newTask.category === category) newTask.category = undefined;
+        return newTask;
+      });
     },
 
     addTask(state, name) {
