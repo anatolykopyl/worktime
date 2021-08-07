@@ -1,0 +1,24 @@
+@import 'reset-css';
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: $light;
+  background: $darker;
+
+  padding-top: 48px;
+
+  input, button {
+    border: none;
+    border-radius: 16px;
+  }
+
+  .category {
+    border-radius: 16px;
+    padding: 4px 12px;
+    cursor: pointer;
+    color: $darker;
+  }
+}
