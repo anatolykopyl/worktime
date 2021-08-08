@@ -4,6 +4,7 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 
   color: $light;
   background: $darker;
@@ -13,12 +14,24 @@
   input, button {
     border: none;
     border-radius: 16px;
+
+    &::placeholder {
+      color: $dark;
+      opacity: 1;
+    }
   }
 
   .category {
     border-radius: 16px;
-    padding: 4px 12px;
+    padding: 6px 12px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     color: $darker;
+
+    span {
+      margin-left: 4px;
+    }
   }
 }

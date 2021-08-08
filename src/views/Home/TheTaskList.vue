@@ -55,6 +55,7 @@ export default {
 .task-list {
   max-width: $max-width;
   margin: 32px auto;
+  padding: 0 8px;
 
   .add-task {
     width: 100%;

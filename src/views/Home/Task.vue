@@ -1,59 +1,69 @@
 <template>
-  <div
-    class="task"
-    :class="{active: task.running}"
-  >
+  <div class="task" :class="{ active: task.running }">
     <div class="time">
       {{ formattedTime }}
     </div>
     <div class="toggle-state">
       <div v-if="task.running" @click="stopTask">
-        <img src="@/assets/pause.svg">
+        <img src="@/assets/pause.svg" />
       </div>
       <div v-else @click="startTask">
-        <img src="@/assets/play.svg">
+        <img src="@/assets/play.svg" />
       </div>
     </div>
-    <div class="name">
-      {{ task.name }}
-    </div>
-    <div class="spacer"/>
-    <div
-      v-if="task.category"
-      class="category"
-      :style="{ background: stringToColor(task.category) }"
-    >
-      {{ task.category }}
-      <span @click="removeCategory">×</span>
-    </div>
-    <div
-      v-else
-      class="select-category"
-    >
-      Assign Category
-      <CategoryDropdown
+
+    <div class="optional-break">
+      <div class="name">
+        {{ task.name }}
+      </div>
+
+      <div
+        v-if="task.category"
+        class="category"
+        :style="{ background: stringToColor(task.category) }"
+      >
+        {{ task.category }}
+        <span @click="removeCategory">×</span>
+      </div>
+      <div v-else class="select-category" @click="$refs.categorySelect.open">
+        Assign Category
+        <!-- <CategoryDropdown
         class="dropdown"
         @selected="assignCategory"
-      />
+      /> -->
+      </div>
     </div>
 
-    <div
-      class="delete"
-      @click="removeTask"
-    >
-      <img src="@/assets/trash.svg">
+    <Modal ref="categorySelect" class="modal">
+      <div class="title">Assign Category</div>
+      <div
+        v-for="category in categories"
+        :key="category"
+        class="category"
+        :style="{ background: stringToColor(category) }"
+        @click="assignCategory(category)"
+      >
+        {{ category }}
+      </div>
+    </Modal>
+
+    <div class="delete" @click="removeTask">
+      <img src="@/assets/trash.svg" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import toColor from '@/stringToColor';
 
-import CategoryDropdown from './CategoryDropdown.vue';
+// import CategoryDropdown from './CategoryDropdown.vue';
+import Modal from '@/components/Modal.vue';
 
 export default {
   components: {
-    CategoryDropdown,
+    // CategoryDropdown,
+    Modal,
   },
   props: {
     task: Object,
@@ -73,9 +83,13 @@ export default {
     },
     assignCategory(category) {
       this.$store.commit('assignCategory', { name: this.task.name, category });
+      this.$refs.categorySelect.close();
     },
     removeCategory() {
-      this.$store.commit('assignCategory', { name: this.task.name, category: undefined });
+      this.$store.commit('assignCategory', {
+        name: this.task.name,
+        category: undefined,
+      });
     },
     stringToColor(str) {
       return toColor(str);
@@ -106,6 +120,9 @@ export default {
 
       return `${days}d ${hours}h ${mins}m`;
     },
+    ...mapState({
+      categories: (state) => state.categories,
+    }),
   },
   mounted() {
     setInterval(() => {
@@ -118,12 +135,12 @@ export default {
 <style lang="scss" scoped>
 .task {
   color: $lighter;
-  height: 42px;
+  min-height: 42px;
   display: flex;
   align-items: center;
 
   .time {
-    width: 124px;
+    min-width: 104px;
   }
 
   .toggle-state {
@@ -146,42 +163,71 @@ export default {
     }
   }
 
-  .spacer {
+  .optional-break {
     flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .select-category {
     position: relative;
-    color: $darker;
+    color: $light;
     background: $dark;
     padding: 4px 12px;
     border-radius: 16px;
+    cursor: pointer;
 
-    .dropdown {
-      display: none;
-    }
+    // .dropdown {
+    //   display: none;
+    // }
 
-    &:hover {
-      .dropdown {
-        display: block;
-      }
-    }
+    // &:hover {
+    //   .dropdown {
+    //     display: block;
+    //   }
+    // }
   }
 
   .delete {
     margin-left: 16px;
     cursor: pointer;
   }
+
+  .modal {
+    .category {
+      margin-top: 12px;
+      border-radius: 24px !important;
+      padding: 12px 24px !important;
+    }
+  }
 }
 
 @keyframes pulse {
-  from {opacity: .3;}
-  to {opacity: 1;}
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .task.active {
   .time {
     animation: pulse 1s infinite alternate;
+  }
+}
+
+@media screen and (max-width: $max-width) {
+  .task {
+    min-height: 64px;
+    margin-bottom: 16px;
+
+    .optional-break {
+      flex-direction: column;
+      height: 48px;
+    }
   }
 }
 </style>

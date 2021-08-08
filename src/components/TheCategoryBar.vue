@@ -5,15 +5,16 @@
       v-model="newCategory"
       placeholder="New category"
       @keypress.enter="addCategory"
-      @mouseenter="newCategory=''"
+      @mouseenter="newCategory = ''"
       @mouseleave="blurInput"
     />
     <div class="categories">
       <div
         class="category"
-        v-for="category in categories" :key="category"
-        :style="{background: stringToColor(category)}"
-        :class="{selected: selectedCategory===category}"
+        v-for="category in categories"
+        :key="category"
+        :style="{ background: stringToColor(category) }"
+        :class="{ selected: selectedCategory === category }"
         @click="selectCategory(category)"
       >
         {{ category }}
@@ -75,7 +76,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid $light;
+  //border-bottom: 1px solid $light;
   height: 48px;
   background: $dark;
   display: flex;
@@ -89,25 +90,32 @@ export default {
     padding: 4px 12px;
     width: 32px;
     box-sizing: border-box;
-    transition: width .6s;
+    transition: width 0.6s;
 
     &:hover {
-      width: 220px
+      width: 220px;
     }
   }
 
   .categories {
     display: flex;
     margin-left: 32px;
+    overflow-x: scroll;
 
     .category {
       margin-right: 16px;
-      border: 3px solid transparent;
+      border: 3px solid $dark;
 
       &.selected {
         border: 3px double $dark;
       }
     }
+  }
+}
+
+@media screen and (max-width: $max-width) {
+  .category-bar {
+    padding: 0 0 0 8px;
   }
 }
 </style>
