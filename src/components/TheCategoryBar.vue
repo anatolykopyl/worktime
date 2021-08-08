@@ -36,9 +36,10 @@ export default {
     };
   },
   methods: {
-    addCategory() {
+    addCategory(event) {
       this.$store.commit('addCategory', this.newCategory);
       this.newCategory = '';
+      this.blurInput(event);
     },
     removeCategory(category) {
       this.$store.commit('removeCategory', category);
