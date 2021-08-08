@@ -1,5 +1,6 @@
 {
   "name": "worktime",
+  "author": "Anatoly Kopyl",
   "version": "0.1.0",
   "private": true,
   "scripts": {
