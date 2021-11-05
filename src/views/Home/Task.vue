@@ -27,10 +27,6 @@
       </div>
       <div v-else class="select-category" @click="$refs.categorySelect.open">
         Assign Category
-        <!-- <CategoryDropdown
-        class="dropdown"
-        @selected="assignCategory"
-      /> -->
       </div>
     </div>
 

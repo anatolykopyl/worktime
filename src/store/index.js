@@ -9,6 +9,8 @@ export default createStore({
   state: {
     categories: [],
     tasks: [],
+    midnightReset: false,
+    darkTheme: true,
   },
   mutations: {
     addCategory(state, category) {
@@ -21,6 +23,15 @@ export default createStore({
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
         if (newTask.category === category) newTask.category = undefined;
+        return newTask;
+      });
+    },
+    assignCategory(state, { name, category }) {
+      state.tasks = state.tasks.map((task) => {
+        const newTask = task;
+        if (newTask.name === name) {
+          newTask.category = category;
+        }
         return newTask;
       });
     },
@@ -66,14 +77,8 @@ export default createStore({
       });
     },
 
-    assignCategory(state, { name, category }) {
-      state.tasks = state.tasks.map((task) => {
-        const newTask = task;
-        if (newTask.name === name) {
-          newTask.category = category;
-        }
-        return newTask;
-      });
+    setMidnightReset(state, value) {
+      state.midnightReset = !!value;
     },
   },
   plugins: [vuexLocal.plugin],
