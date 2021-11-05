@@ -5,7 +5,8 @@
       v-model="newCategory"
       placeholder="New category"
       @keypress.enter="addCategory"
-      @mouseenter="newCategory = ''"
+      @click="hoverInput"
+      @mouseenter="hoverInput"
       @mouseleave="blurInput"
     />
     <div class="categories">
@@ -44,11 +45,16 @@ export default {
     removeCategory(category) {
       this.$store.commit('removeCategory', category);
       if (category === this.selectedCategory) {
-        this.selectedCategory();
+        this.selectCategory();
       }
+    },
+    hoverInput(event) {
+      this.newCategory = '';
+      event.target.classList.add('hover');
     },
     blurInput(event) {
       this.newCategory = '+';
+      event.target.classList.remove('hover');
       event.target.blur();
     },
     stringToColor(str) {
@@ -93,7 +99,7 @@ export default {
     box-sizing: border-box;
     transition: width 0.6s;
 
-    &:hover {
+    &.hover {
       width: 220px;
     }
   }

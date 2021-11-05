@@ -10,6 +10,7 @@ export default createStore({
     categories: [],
     tasks: [],
     midnightReset: false,
+    lastReset: undefined,
     darkTheme: true,
   },
   mutations: {
