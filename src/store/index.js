@@ -10,7 +10,7 @@ export default createStore({
     categories: [],
     tasks: [],
     midnightReset: false,
-    lastReset: undefined,
+    lastReset: new Date(),
     darkTheme: true,
   },
   mutations: {
@@ -76,6 +76,16 @@ export default createStore({
         }
         return newTask;
       });
+    },
+    resetTasks(state) {
+      state.tasks = state.tasks.map((task) => {
+        const newTask = task;
+        newTask.running = false;
+        newTask.totalTime = 0;
+        newTask.startedAt = undefined;
+        return newTask;
+      });
+      state.lastReset = new Date();
     },
 
     setMidnightReset(state, value) {

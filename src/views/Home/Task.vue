@@ -23,7 +23,7 @@
         :style="{ background: stringToColor(task.category) }"
       >
         {{ task.category }}
-        <span @click="removeCategory">×</span>
+        <span @click="removeCategory"><img src="@/assets/cross.svg" /></span>
       </div>
       <div v-else class="select-category" @click="$refs.categorySelect.open">
         Assign Category

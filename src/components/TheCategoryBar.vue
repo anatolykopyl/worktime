@@ -19,9 +19,15 @@
         @click="selectCategory(category)"
       >
         {{ category }}
-        <span @click.stop="removeCategory(category)">×</span>
+        <span @click.stop="removeCategory(category)"><img src="@/assets/cross.svg" /></span>
       </div>
     </div>
+
+    <div class="settings" @click="openSettings">
+      <img src="@/assets/gear.svg" />
+    </div>
+
+    <SettingsModal ref="settingsModal" />
   </div>
 </template>
 
@@ -29,7 +35,12 @@
 import { mapState } from 'vuex';
 import toColor from '@/stringToColor';
 
+import SettingsModal from './SettingsModal.vue';
+
 export default {
+  components: {
+    SettingsModal,
+  },
   data() {
     return {
       newCategory: '+',
@@ -68,6 +79,9 @@ export default {
       }
       this.$emit('select', this.selectedCategory);
     },
+    openSettings() {
+      this.$refs.settingsModal.open();
+    },
   },
   computed: {
     ...mapState({
@@ -89,6 +103,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 64px;
+  box-sizing: border-box;
 
   .add-category {
     color: $darker;
@@ -106,7 +121,7 @@ export default {
 
   .categories {
     display: flex;
-    margin-left: 32px;
+    margin: 0 32px;
     overflow-x: scroll;
 
     .category {
@@ -118,11 +133,33 @@ export default {
       }
     }
   }
+
+  .settings {
+    position: absolute;
+    right: 64px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+
+    > * {
+      height: inherit;
+    }
+  }
 }
 
 @media screen and (max-width: $max-width) {
   .category-bar {
     padding: 0 0 0 8px;
+
+    .categories {
+      margin-right: 0;
+    }
+
+    .settings {
+      position: fixed;
+      bottom: 8px;
+      right: 8px;
+    }
   }
 }
 </style>

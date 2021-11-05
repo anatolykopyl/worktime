@@ -6,7 +6,7 @@
     >
       <div class="bg" @click="close" />
       <div class="window">
-        <div class="close" @click="close">×</div>
+        <div class="close" @click="close"><img src="@/assets/cross.svg" /></div>
         <slot />
       </div>
     </div>
@@ -79,6 +79,7 @@ export default {
       width: 100%;
       bottom: 0;
       top: unset;
+      padding-bottom: 32px;
       box-sizing: border-box;
       border-radius: 16px 16px 0 0;
       transform: translate(0, 0);

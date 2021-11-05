@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 import TheCategoryBar from '@/components/TheCategoryBar.vue';
 import TheTaskList from './TheTaskList.vue';
 
@@ -20,7 +22,18 @@ export default {
       selectedCategory: undefined,
     };
   },
+  computed: {
+    ...mapState(['midnightReset', 'lastReset']),
+  },
+  beforeMount() {
+    const lastMidnight = new Date();
+    lastMidnight.setHours(0, 0, 0, 0);
+    if (this.midnightReset && this.lastReset < lastMidnight) {
+      this.resetTasks();
+    }
+  },
   methods: {
+    ...mapMutations(['resetTasks']),
     select(category) {
       this.selectedCategory = category;
     },

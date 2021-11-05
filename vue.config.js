@@ -3,6 +3,9 @@ module.exports = {
     ? '/worktime/'
     : '/',
   pwa: {
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black-transculent',
+    themeColor: '#252525',
     workboxOptions: {
       skipWaiting: true,
       clientsClaim: true,
