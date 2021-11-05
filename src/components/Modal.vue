@@ -1,14 +1,16 @@
 <template>
-  <div
-    class="modal"
-    :class="{hidden: !active}"
-  >
-    <div class="bg" @click="close" />
-    <div class="window">
-      <div class="close" @click="close">×</div>
-      <slot />
+  <teleport to="#modalSpot">
+    <div
+      class="modal"
+      :class="{hidden: !active}"
+    >
+      <div class="bg" @click="close" />
+      <div class="window">
+        <div class="close" @click="close">×</div>
+        <slot />
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>

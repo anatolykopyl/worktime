@@ -1,6 +1,7 @@
 <template>
   <div class="app-backdrop"></div>
   <router-view/>
+  <div id="modalSpot" />
 </template>
 
 <style lang="scss">

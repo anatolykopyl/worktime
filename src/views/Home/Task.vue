@@ -34,18 +34,10 @@
       </div>
     </div>
 
-    <Modal ref="categorySelect" class="modal">
-      <div class="title">Assign Category</div>
-      <div
-        v-for="category in categories"
-        :key="category"
-        class="category"
-        :style="{ background: stringToColor(category) }"
-        @click="assignCategory(category)"
-      >
-        {{ category }}
-      </div>
-    </Modal>
+    <CategoryModal
+      ref="categorySelect"
+      :name="task.name"
+    />
 
     <div class="delete" @click="removeTask">
       <img src="@/assets/trash.svg" />
@@ -54,16 +46,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import toColor from '@/stringToColor';
 
-// import CategoryDropdown from './CategoryDropdown.vue';
-import Modal from '@/components/Modal.vue';
+import CategoryModal from './CategoryModal.vue';
 
 export default {
   components: {
-    // CategoryDropdown,
-    Modal,
+    CategoryModal,
   },
   props: {
     task: Object,
@@ -80,10 +69,6 @@ export default {
     },
     stopTask() {
       this.$store.commit('stopTask', this.task.name);
-    },
-    assignCategory(category) {
-      this.$store.commit('assignCategory', { name: this.task.name, category });
-      this.$refs.categorySelect.close();
     },
     removeCategory() {
       this.$store.commit('assignCategory', {
@@ -120,9 +105,6 @@ export default {
 
       return `${days}d ${hours}h ${mins}m`;
     },
-    ...mapState({
-      categories: (state) => state.categories,
-    }),
   },
   mounted() {
     setInterval(() => {
@@ -193,14 +175,6 @@ export default {
   .delete {
     margin-left: 16px;
     cursor: pointer;
-  }
-
-  .modal {
-    .category {
-      margin-top: 12px;
-      border-radius: 24px !important;
-      padding: 12px 24px !important;
-    }
   }
 }
 
