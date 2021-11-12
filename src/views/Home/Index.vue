@@ -28,7 +28,8 @@ export default {
   beforeMount() {
     const lastMidnight = new Date();
     lastMidnight.setHours(0, 0, 0, 0);
-    if (this.midnightReset && this.lastReset < lastMidnight) {
+    const lastReset = new Date(this.lastReset);
+    if (this.midnightReset && lastReset < lastMidnight) {
       this.resetTasks();
     }
   },

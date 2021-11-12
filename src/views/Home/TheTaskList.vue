@@ -1,11 +1,14 @@
 <template>
   <div class="task-list">
-    <input
-      class="add-task"
-      v-model=newTask
-      placeholder="Add new task"
-      @keypress.enter="addTask"
-    />
+    <div>
+      <input
+        class="add-task"
+        v-model=newTask
+        placeholder="Add new task"
+        @keypress.enter="addTask"
+      />
+
+    </div>
     <Task
       v-for="task in filteredTasks"
       :key="task.startedAt"

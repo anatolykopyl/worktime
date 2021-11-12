@@ -121,7 +121,7 @@ export default {
 
   .categories {
     display: flex;
-    margin: 0 32px;
+    margin: 0 64px 0 32px;
     overflow-x: scroll;
 
     .category {
@@ -157,8 +157,8 @@ export default {
 
     .settings {
       position: fixed;
-      bottom: 8px;
-      right: 8px;
+      bottom: 16px;
+      right: 16px;
     }
   }
 }
