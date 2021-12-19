@@ -52,6 +52,9 @@ export default createStore({
     removeTask(state, name) {
       state.tasks = state.tasks.filter((task) => task.name !== name);
     },
+    removeAllTasks(state) {
+      state.tasks = [];
+    },
     startTask(state, name) {
       state.tasks = state.tasks.map((task) => {
         const newTask = task;

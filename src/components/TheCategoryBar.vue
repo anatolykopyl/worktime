@@ -84,9 +84,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      categories: (state) => state.categories,
-    }),
+    ...mapState(['categories']),
   },
 };
 </script>
@@ -104,6 +102,7 @@ export default {
   align-items: center;
   padding: 0 64px;
   box-sizing: border-box;
+  z-index: 900;
 
   .add-category {
     color: $darker;

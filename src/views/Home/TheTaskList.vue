@@ -41,9 +41,7 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      tasks: (state) => state.tasks,
-    }),
+    ...mapState(['tasks']),
     filteredTasks() {
       if (this.selectedCategory) {
         return this.tasks.filter((task) => task.category === this.selectedCategory);

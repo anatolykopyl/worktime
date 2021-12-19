@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <TheCategoryBar @select="select" />
+    <GlobalTaskControls />
     <TheTaskList :selectedCategory="selectedCategory" />
   </div>
 </template>
@@ -9,12 +10,14 @@
 import { mapState, mapMutations } from 'vuex';
 
 import TheCategoryBar from '@/components/TheCategoryBar.vue';
+import GlobalTaskControls from './GlobalTaskControls.vue';
 import TheTaskList from './TheTaskList.vue';
 
 export default {
   name: 'Home',
   components: {
     TheCategoryBar,
+    GlobalTaskControls,
     TheTaskList,
   },
   data() {

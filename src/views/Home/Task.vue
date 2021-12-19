@@ -1,8 +1,9 @@
 <template>
-  <div class="task" :class="{ active: task.running }">
-    <div class="time">
-      {{ formattedTime }}
-    </div>
+  <div class="task">
+    <Time
+      :time="time"
+      :pulsing="task.running"
+    />
     <div class="toggle-state">
       <div v-if="task.running" @click="stopTask">
         <img src="@/assets/pause.svg" />
@@ -44,10 +45,12 @@
 <script>
 import toColor from '@/stringToColor';
 
+import Time from './Time.vue';
 import CategoryModal from './CategoryModal.vue';
 
 export default {
   components: {
+    Time,
     CategoryModal,
   },
   props: {
@@ -86,23 +89,8 @@ export default {
       }
       return this.task.totalTime;
     },
-    formattedTime() {
-      let { time } = this;
-      const msInASec = 1000;
-      const msInAMin = msInASec * 60;
-      const msInAHour = msInAMin * 60;
-      const msInADay = msInAHour * 24;
-
-      const days = Math.floor(time / msInADay);
-      time -= days * msInADay;
-      const hours = Math.floor(time / msInAHour);
-      time -= hours * msInAHour;
-      const mins = Math.floor(time / msInAMin);
-
-      return `${days}d ${hours}h ${mins}m`;
-    },
   },
-  mounted() {
+  beforeMount() {
     setInterval(() => {
       this.timePassed = Date.now() - this.task.startedAt;
     }, 1000);
@@ -156,36 +144,11 @@ export default {
     padding: 4px 12px;
     border-radius: 16px;
     cursor: pointer;
-
-    // .dropdown {
-    //   display: none;
-    // }
-
-    // &:hover {
-    //   .dropdown {
-    //     display: block;
-    //   }
-    // }
   }
 
   .delete {
     margin-left: 16px;
     cursor: pointer;
-  }
-}
-
-@keyframes pulse {
-  from {
-    opacity: 0.3;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.task.active {
-  .time {
-    animation: pulse 1s infinite alternate;
   }
 }
 
