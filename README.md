@@ -1,6 +1,6 @@
 # Worktime
 
-![Screenshot](/screenshot.jpg)
+![Screenshot](/screenshot.png)
 
 *An app to track your time*
 
