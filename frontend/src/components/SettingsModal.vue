@@ -5,6 +5,7 @@
       <input type="checkbox" id="reset" v-model="resetAtMidnight">
       <label for="reset">Reset all tasks to 0 at midnight</label>
     </div>
+    <Auth />
   </Modal>
 </template>
 
@@ -12,10 +13,12 @@
 import { mapState, mapMutations } from 'vuex';
 
 import Modal from '@/components/Modal.vue';
+import Auth from './Auth.vue';
 
 export default {
   components: {
     Modal,
+    Auth,
   },
   data() {
     return {
