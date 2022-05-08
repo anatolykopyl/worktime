@@ -1,11 +1,11 @@
-export default async function getUserId(token: string, authProvider: string) {
+export default async function getProviderId(token: string, authProvider: string) {
   switch (authProvider) {
     case 'yandex':
-      return getYandexUserId(token);
+      return getYandexId(token);
   }
 }
 
-async function getYandexUserId(token: string) {
+async function getYandexId(token: string) {
   const baseUrl = 'https://login.yandex.ru/info';
   const response = await fetch(baseUrl, {
     headers: {

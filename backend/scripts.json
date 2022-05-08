@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": {
+      "cmd": "./src/index.ts",
+      "desc": "Run the development server.",
+      "allow": ["net", "env", "read"]
+    }
+  }
+}

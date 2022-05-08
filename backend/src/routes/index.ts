@@ -1,13 +1,14 @@
-import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 import { Router } from "https://deno.land/x/oak@v10.5.1/mod.ts";
-// import onyx from "https://deno.land/x/onyx@v1.0.1/mod.ts";
 import { MongoClient } from "https://deno.land/x/mongo@v0.29.4/mod.ts";
 
-import User from './models/User.ts';
-import getUserId from './getUserId.ts';
+import User from '../models/User.ts';
+import getProviderId from '../getProviderId.ts';
+
+const MONGODB_URI = String(Deno.env.get('MONGODB_URI'));
 
 const client = new MongoClient();
-await client.connect(config().MONGODB_URI);
+await client.connect(MONGODB_URI);
 
 const db = client.database("worktime");
 const users = db.collection<User>("users");
@@ -18,18 +19,27 @@ const endpoints = new Router()
     const token = body.token;
     const authProvider = body.authProvider;
 
-    const userId = await getUserId(token, authProvider);
+    const providerId = await getProviderId(token, authProvider);
 
-    await users.insertOne(new User({
-      userId,
+    let user = await users.findOne({
+      providerId,
       authProvider
-    }));
+    });
+
+    if (!user) {
+      user = new User({
+        providerId,
+        authProvider
+      });
+      await users.insertOne(user);
+    }
+
+    await ctx.state.session.set('userId', user.id);
 
     ctx.response.body = 'success';
   })
 
 const routes = new Router()
   .use("/api", endpoints.routes(), endpoints.allowedMethods())
-  // .use(onyx.initialize())
 
 export default routes;

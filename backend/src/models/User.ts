@@ -1,21 +1,23 @@
 import Task from './Task.ts';
 
 export default class User {
-  userId: string;
+  id: string;
+  providerId: string;
   authProvider: string;
   tasks: Array<Task>;
   categories: Array<string>;
   updatedAt: Date;
 
   constructor({
-    userId,
+    providerId,
     authProvider
   }: {
-    userId: string,
+    providerId: string,
     authProvider: string
   }) {
-    this.userId = userId;
+    this.providerId = providerId;
     this.authProvider = authProvider;
+    this.id = `${providerId}@${authProvider}`;
     this.tasks = [];
     this.categories = [];
     this.updatedAt = new Date();
