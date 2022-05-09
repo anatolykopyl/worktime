@@ -68,7 +68,19 @@ const endpoints = new Router()
       serverSideUser.updatedAt = new Date();
     }
 
-    ctx.response.body = serverSideUser;
+    await users.updateOne({ id: userId }, {
+      $set: {
+        tasks: serverSideUser.tasks,
+        categories: serverSideUser.categories,
+        updatedAt: serverSideUser.updatedAt
+      }
+    })
+
+    ctx.response.body = {
+      tasks: serverSideUser.tasks,
+      categories: serverSideUser.categories,
+      updatedAt: serverSideUser.updatedAt,
+    };
   })
 
 const routes = new Router()

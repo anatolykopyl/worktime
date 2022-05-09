@@ -29,7 +29,11 @@ class Api {
         },
       }),
     });
-    console.log(await response.json());
+
+    const syncedData = await response.json();
+    store.commit('setTasks', syncedData.tasks);
+    store.commit('setCategories', syncedData.categories);
+    store.commit('updated');
   }
 }
 

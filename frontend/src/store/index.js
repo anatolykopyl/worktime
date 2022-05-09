@@ -16,11 +16,13 @@ export default createStore({
   },
   mutations: {
     addCategory(state, category) {
+      this.commit('updated');
       if (category && !state.categories.includes(category)) {
         state.categories = [...state.categories, category];
       }
     },
     removeCategory(state, category) {
+      this.commit('updated');
       state.categories = state.categories.filter((element) => element !== category);
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
@@ -29,6 +31,7 @@ export default createStore({
       });
     },
     assignCategory(state, { name, category }) {
+      this.commit('updated');
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
         if (newTask.name === name) {
@@ -37,8 +40,12 @@ export default createStore({
         return newTask;
       });
     },
+    setCategories(state, categories) {
+      state.categories = categories;
+    },
 
     addTask(state, name) {
+      this.commit('updated');
       if (name) {
         const task = {
           name,
@@ -51,12 +58,15 @@ export default createStore({
       }
     },
     removeTask(state, name) {
+      this.commit('updated');
       state.tasks = state.tasks.filter((task) => task.name !== name);
     },
     removeAllTasks(state) {
+      this.commit('updated');
       state.tasks = [];
     },
     startTask(state, name) {
+      this.commit('updated');
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
         if (newTask.name === name) {
@@ -71,6 +81,7 @@ export default createStore({
       });
     },
     stopTask(state, name) {
+      this.commit('updated');
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
         if (newTask.name === name) {
@@ -82,6 +93,7 @@ export default createStore({
       });
     },
     resetTasks(state) {
+      this.commit('updated');
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
         newTask.running = false;
@@ -91,13 +103,16 @@ export default createStore({
       });
       state.lastReset = new Date();
     },
+    setTasks(state, tasks) {
+      state.tasks = tasks;
+    },
 
     setMidnightReset(state, value) {
       state.midnightReset = !!value;
     },
 
-    updated(state) {
-      state.updatedAt = new Date();
+    updated(state, at) {
+      state.updatedAt = at ?? new Date();
     },
   },
   plugins: [vuexLocal.plugin],
