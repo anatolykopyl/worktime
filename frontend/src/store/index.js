@@ -11,7 +11,7 @@ export default createStore({
     tasks: [],
     midnightReset: false,
     lastReset: new Date(),
-    token: null,
+    updatedAt: new Date(),
     darkTheme: true,
   },
   mutations: {
@@ -96,8 +96,8 @@ export default createStore({
       state.midnightReset = !!value;
     },
 
-    setToken(state, token) {
-      state.token = token;
+    updated(state) {
+      state.updatedAt = new Date();
     },
   },
   plugins: [vuexLocal.plugin],

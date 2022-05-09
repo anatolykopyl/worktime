@@ -10,17 +10,29 @@ export default class User {
 
   constructor({
     providerId,
-    authProvider
+    authProvider,
+    tasks,
+    categories,
+    updatedAt
   }: {
     providerId: string,
-    authProvider: string
+    authProvider: string,
+    tasks?: Array<Task>,
+    categories?: Array<string>,
+    updatedAt?: Date | string
   }) {
     this.providerId = providerId;
     this.authProvider = authProvider;
     this.id = `${providerId}@${authProvider}`;
-    this.tasks = [];
-    this.categories = [];
-    this.updatedAt = new Date();
+    this.tasks = tasks ?? [];
+    this.categories = categories ?? [];
+    if (updatedAt instanceof Date) {
+      this.updatedAt = updatedAt;
+    } else if (updatedAt) {
+      this.updatedAt = new Date(updatedAt);
+    } else {
+      this.updatedAt = new Date();
+    }
   }
 
   addTask(task: Task) {

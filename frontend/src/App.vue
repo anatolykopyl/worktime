@@ -4,6 +4,16 @@
   <div id="modalSpot" />
 </template>
 
+<script>
+import api from '@/api';
+
+export default {
+  async mounted() {
+    await api.sync();
+  },
+};
+</script>
+
 <style lang="scss">
 @import "@/scss/style.scss";
 
