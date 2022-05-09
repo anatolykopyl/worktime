@@ -1,0 +1,56 @@
+kind: pipeline
+type: docker
+name: frontend
+
+clone:
+  disable: true
+
+steps:
+- name: bulid
+  image: node:16
+  environment:
+    SSH_KEY:
+      from_secret: SSH_KEY
+  commands:
+  - git clone https://git.radner.ru/anatolykopyl/worktime.git
+  - cd worktime
+  - npm install
+  - npm run build
+  - mkdir ~/.ssh
+  - echo "$SSH_KEY" > ~/.ssh/id_rsa
+  - chmod 400 ~/.ssh/id_rsa
+  - scp -o StrictHostKeyChecking=no -r dist/* webmaster@worktime.anatolykopyl.ru:~/www/worktime.anatolykopyl.ru
+  when:
+    branch:
+    - cloud-saves
+
+---
+
+kind: pipeline
+type: ssh
+name: backend
+
+server:
+  host: worktime.anatolykopyl.ru
+  user: webmaster
+  ssh_key:
+    from_secret: SSH_KEY
+
+clone:
+  disable: true
+
+steps:
+- name: fetch remote
+  commands:
+  - cd /home/webmaster/worktime && git fetch --all && git reset --hard origin/cloud-saves
+- name: build docker
+  commands:
+  - docker build --tag worktime:latest /home/worktime/backend
+- name: restart docker
+  - docker stop worktime
+  - docker rm worktime
+  - docker run --name worktime -p 3003:3000 -d worktime
+
+trigger:
+  branch:
+  - cloud-saves
