@@ -12,17 +12,18 @@ steps:
     SSH_KEY:
       from_secret: SSH_KEY
   commands:
-  - git clone https://git.radner.ru/anatolykopyl/worktime.git
-  - cd worktime
+  - git clone -b cloud-saves https://git.radner.ru/anatolykopyl/worktime.git 
+  - cd worktime/frontend
   - npm install
   - npm run build
   - mkdir ~/.ssh
   - echo "$SSH_KEY" > ~/.ssh/id_rsa
   - chmod 400 ~/.ssh/id_rsa
   - scp -o StrictHostKeyChecking=no -r dist/* webmaster@worktime.anatolykopyl.ru:~/www/worktime.anatolykopyl.ru
-  when:
-    branch:
-    - cloud-saves
+
+trigger:
+  branch:
+  - cloud-saves
 
 ---
 
