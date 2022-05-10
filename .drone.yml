@@ -46,7 +46,7 @@ steps:
   - cd /home/webmaster/worktime && git fetch --all && git reset --hard origin/cloud-saves
 - name: build docker
   commands:
-  - docker build --tag worktime:latest /home/worktime/backend
+  - docker build --tag worktime:latest /home/webmaster/worktime/backend
 - name: restart docker
   commands:
   - docker stop worktime
