@@ -49,8 +49,8 @@ steps:
   - docker build --tag worktime:latest /home/webmaster/worktime/backend
 - name: restart docker
   commands:
-  - docker stop worktime
-  - docker rm worktime
+  - docker stop worktime || true
+  - docker rm worktime || true
   - docker run --name worktime -p 3003:3000 -d worktime
 
 trigger:
