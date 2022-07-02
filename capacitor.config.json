@@ -1,0 +1,6 @@
+{
+  "appId": "com.worktime.app",
+  "appName": "worktime",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

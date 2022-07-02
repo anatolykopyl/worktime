@@ -91,7 +91,7 @@ export default {
 
 <style lang="scss" scoped>
 .category-bar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -101,7 +101,6 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 64px;
-  box-sizing: border-box;
   z-index: 900;
 
   .add-category {
@@ -149,6 +148,7 @@ export default {
 @media screen and (max-width: $max-width) {
   .category-bar {
     padding: 0 0 0 8px;
+    padding-top: env(safe-area-inset-top);
 
     .categories {
       margin-right: 0;
