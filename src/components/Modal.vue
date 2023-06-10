@@ -33,6 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .modal {
+  z-index: 1000;
   position: fixed;
   transition: all .4s;
 
@@ -47,7 +48,6 @@ export default {
   }
 
   .window {
-    z-index: 1000;
     position: fixed;
     left: 50%;
     top: 50%;

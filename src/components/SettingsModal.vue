@@ -1,6 +1,7 @@
 <template>
   <Modal ref="modal">
     <div class="title">Settings</div>
+
     <div class="setting">
       <input type="checkbox" id="reset" v-model="resetAtMidnight">
       <label for="reset">Reset all tasks to 0 at midnight</label>
@@ -43,11 +44,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  font: $font-sb-24;
+}
+
 .setting {
   margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
-  label {
-    margin-left: 16px;
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

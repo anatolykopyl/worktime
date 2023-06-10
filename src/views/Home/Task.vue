@@ -21,10 +21,17 @@
       <div
         v-if="task.category"
         class="category"
-        :style="{ background: stringToColor(task.category) }"
+        :style="{ background: task.category.color }"
       >
-        {{ task.category }}
-        <span @click="removeCategory"><img src="@/assets/cross.svg" /></span>
+        <span class="name">
+          {{ task.category.name }}
+        </span>
+        <span
+          class="icon"
+          @click="removeCategory"
+        >
+          <img src="@/assets/cross.svg" />
+        </span>
       </div>
       <div v-else class="select-category" @click="$refs.categorySelect.open">
         Assign Category
@@ -43,8 +50,6 @@
 </template>
 
 <script>
-import toColor from '@/stringToColor';
-
 import Time from './Time.vue';
 import CategoryModal from './CategoryModal.vue';
 
@@ -74,9 +79,6 @@ export default {
         name: this.task.name,
         category: undefined,
       });
-    },
-    stringToColor(str) {
-      return toColor(str);
     },
     removeTask() {
       this.$store.commit('removeTask', this.task.name);

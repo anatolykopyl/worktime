@@ -3,10 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Scada:wght@400;700&display=swap');
 
 #app {
-  font-family: 'Scada', sans-serif;
+  font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
+  font: $font-rg-16;
 
   color: $light;
   background: $darker;
@@ -16,7 +16,7 @@
   input, button {
     border: none;
     border-radius: 16px;
-    font-size: 16px;
+    font: $font-rg-16;
     cursor: pointer;
 
     &::placeholder {
@@ -36,13 +36,17 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    gap: 6px;
     justify-content: space-between;
     color: $darker;
 
-    span {
+    .name {
+      width: max-content;
+    }
+
+    .icon {
       width: 16px;
       height: 16px;
-      margin-left: 4px;
       vertical-align: middle;
     }
   }

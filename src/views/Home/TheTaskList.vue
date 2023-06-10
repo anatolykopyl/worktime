@@ -44,7 +44,8 @@ export default {
     ...mapState(['tasks']),
     filteredTasks() {
       if (this.selectedCategory) {
-        return this.tasks.filter((task) => task.category === this.selectedCategory);
+        return this.tasks.filter((task) => task.category
+        && task.category.id === this.selectedCategory.id);
       }
       return this.tasks;
     },

@@ -19,11 +19,11 @@ export default createStore({
         state.categories = [...state.categories, category];
       }
     },
-    removeCategory(state, category) {
-      state.categories = state.categories.filter((element) => element !== category);
+    removeCategory(state, categoryId) {
+      state.categories = state.categories.filter((element) => element.id !== categoryId);
       state.tasks = state.tasks.map((task) => {
         const newTask = task;
-        if (newTask.category === category) newTask.category = undefined;
+        if (newTask.category && newTask.category.id === categoryId) newTask.category = undefined;
         return newTask;
       });
     },

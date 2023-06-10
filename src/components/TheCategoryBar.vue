@@ -14,12 +14,24 @@
         class="category"
         v-for="category in categories"
         :key="category"
-        :style="{ background: stringToColor(category) }"
+        :style="{ background: category.color }"
         :class="{ selected: selectedCategory === category }"
         @click="selectCategory(category)"
       >
-        {{ category }}
-        <span @click.stop="removeCategory(category)"><img src="@/assets/cross.svg" /></span>
+        <span
+          v-if="selectedCategory === category"
+          class="icon"
+          @click.stop="openCategorySettings(category)"
+        >
+          <img src="@/assets/gear.svg" />
+        </span>
+        <span class="name">{{ category.name }}</span>
+        <span
+          @click.stop="removeCategory(category.id)"
+          class="icon"
+        >
+          <img src="@/assets/cross.svg" />
+        </span>
       </div>
     </div>
 
@@ -49,13 +61,20 @@ export default {
   },
   methods: {
     addCategory(event) {
-      this.$store.commit('addCategory', this.newCategory);
+      const id = crypto.randomUUID();
+      const createdCategory = {
+        id,
+        name: this.newCategory,
+        color: toColor(id),
+      };
+
+      this.$store.commit('addCategory', createdCategory);
       this.newCategory = '';
       this.blurInput(event);
     },
-    removeCategory(category) {
-      this.$store.commit('removeCategory', category);
-      if (category === this.selectedCategory) {
+    removeCategory(categoryId) {
+      this.$store.commit('removeCategory', categoryId);
+      if (this.selectedCategory && categoryId === this.selectedCategory.id) {
         this.selectCategory();
       }
     },
@@ -68,11 +87,8 @@ export default {
       event.target.classList.remove('hover');
       event.target.blur();
     },
-    stringToColor(str) {
-      return toColor(str);
-    },
     selectCategory(category) {
-      if (this.selectedCategory === category) {
+      if (this.selectedCategory && this.selectedCategory.id === category.id) {
         this.selectedCategory = undefined;
       } else {
         this.selectedCategory = category;
@@ -81,6 +97,9 @@ export default {
     },
     openSettings() {
       this.$refs.settingsModal.open();
+    },
+    openCategorySettings(category) {
+      this.$refs.categorySettingsModal.open(category);
     },
   },
   computed: {
@@ -112,6 +131,7 @@ export default {
     width: 32px;
     box-sizing: border-box;
     transition: width 0.6s;
+    font: $font-sb-24;
 
     &.hover {
       width: 220px;
@@ -120,11 +140,12 @@ export default {
 
   .categories {
     display: flex;
+    align-items: center;
     margin: 0 64px 0 32px;
+    gap: 16px;
     overflow-x: scroll;
 
     .category {
-      margin-right: 16px;
       border: 3px solid $dark;
 
       &.selected {

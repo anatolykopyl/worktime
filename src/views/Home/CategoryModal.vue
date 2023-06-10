@@ -3,12 +3,12 @@
     <div class="title">Assign Category</div>
     <div
       v-for="category in categories"
-      :key="category"
+      :key="category.id"
       class="category"
-      :style="{ background: stringToColor(category) }"
+      :style="{ background: category.color }"
       @click="assignCategory(category)"
     >
-      {{ category }}
+      {{ category.name }}
     </div>
   </Modal>
 </template>
@@ -17,7 +17,6 @@
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import Modal from '@/components/Modal.vue';
-import toColor from '@/stringToColor';
 
 export default {
   components: { Modal },
@@ -38,8 +37,6 @@ export default {
       modal.value.close();
     };
 
-    const stringToColor = (str) => toColor(str);
-
     const assignCategory = (category) => {
       store.commit('assignCategory', { name: props.name, category });
       modal.value.close();
@@ -50,7 +47,6 @@ export default {
       open,
       close,
       assignCategory,
-      stringToColor,
       categories: computed(() => store.state.categories),
     };
   },
