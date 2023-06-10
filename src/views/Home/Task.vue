@@ -104,14 +104,13 @@ export default {
   min-height: 42px;
   display: flex;
   align-items: center;
+  gap: 16px;
 
   .time {
-    min-width: 104px;
+    min-width: 96px;
   }
 
   .toggle-state {
-    margin-right: 16px;
-
     > * {
       width: 32px;
       height: 32px;
@@ -133,8 +132,12 @@ export default {
     flex-grow: 1;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
     align-items: center;
+    gap: 8px;
+  }
+
+  .name {
+    text-align: center;
   }
 
   .select-category {
@@ -147,8 +150,8 @@ export default {
   }
 
   .delete {
-    margin-left: 16px;
     cursor: pointer;
+    padding: 8px;
   }
 }
 
@@ -159,7 +162,6 @@ export default {
 
     .optional-break {
       flex-direction: column;
-      height: 48px;
     }
   }
 }
