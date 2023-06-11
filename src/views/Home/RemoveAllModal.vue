@@ -40,6 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .title {
+  font: $font-sb-24;
   margin-right: 32px;
 }
 

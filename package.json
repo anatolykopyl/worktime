@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "maska": "^2.1.9",
     "register-service-worker": "^1.7.1",
     "reset-css": "^5.0.1",
     "v-onboarding": "^2.5.1",

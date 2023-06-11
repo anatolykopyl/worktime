@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  font: $font-sb-24;
+}
+
 .category {
   margin-top: 12px;
   border-radius: 24px !important;

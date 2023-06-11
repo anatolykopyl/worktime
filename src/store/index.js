@@ -36,6 +36,14 @@ export default createStore({
         return newTask;
       });
     },
+    updateCategory(state, category) {
+      state.categories = state.categories.map((c) => {
+        if (c.id === category.id) {
+          return category;
+        }
+        return c;
+      });
+    },
 
     addTask(state, name) {
       if (name) {

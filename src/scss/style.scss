@@ -12,42 +12,42 @@
   background: $darker;
 
   padding-top: 48px;
+}
 
-  input, button {
-    border: none;
-    border-radius: 16px;
-    font: $font-rg-16;
-    cursor: pointer;
+input, button {
+  border: none;
+  border-radius: 16px;
+  font: $font-rg-16;
+  cursor: pointer;
 
-    &::placeholder {
-      color: $dark;
-      opacity: 1;
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
+  &::placeholder {
+    color: $dark;
+    opacity: 1;
   }
 
-  .category {
-    border-radius: 16px;
-    height: 1rem;
-    padding: 6px 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    justify-content: space-between;
-    color: $darker;
+  &:focus-visible {
+    outline: none;
+  }
+}
 
-    .name {
-      width: max-content;
-    }
+.category {
+  border-radius: 16px;
+  height: 1rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: space-between;
+  color: $darker;
 
-    .icon {
-      width: 16px;
-      height: 16px;
-      vertical-align: middle;
-    }
+  .name {
+    width: max-content;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
   }
 }

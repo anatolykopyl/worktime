@@ -2,7 +2,7 @@
   <div class="category-bar">
     <input
       class="add-category"
-      v-model="newCategory"
+      v-model="newCategoryName"
       placeholder="New category"
       @keypress.enter="addCategory"
       @click="hoverInput"
@@ -21,7 +21,7 @@
         <span
           v-if="selectedCategory === category"
           class="icon"
-          @click.stop="openCategorySettings(category)"
+          @click.stop="openCategorySettings(category.id)"
         >
           <img src="@/assets/gear.svg" />
         </span>
@@ -40,6 +40,7 @@
     </div>
 
     <SettingsModal ref="settingsModal" />
+    <CategorySettingsModal ref="categorySettingsModal" />
   </div>
 </template>
 
@@ -48,14 +49,16 @@ import { mapState } from 'vuex';
 import toColor from '@/stringToColor';
 
 import SettingsModal from './SettingsModal.vue';
+import CategorySettingsModal from './CategorySettingsModal.vue';
 
 export default {
   components: {
     SettingsModal,
+    CategorySettingsModal,
   },
   data() {
     return {
-      newCategory: '+',
+      newCategoryName: '+',
       selectedCategory: undefined,
     };
   },
@@ -64,12 +67,12 @@ export default {
       const id = crypto.randomUUID();
       const createdCategory = {
         id,
-        name: this.newCategory,
+        name: this.newCategoryName,
         color: toColor(id),
       };
 
       this.$store.commit('addCategory', createdCategory);
-      this.newCategory = '';
+      this.newCategoryName = '';
       this.blurInput(event);
     },
     removeCategory(categoryId) {
@@ -79,11 +82,11 @@ export default {
       }
     },
     hoverInput(event) {
-      this.newCategory = '';
+      this.newCategoryName = '';
       event.target.classList.add('hover');
     },
     blurInput(event) {
-      this.newCategory = '+';
+      this.newCategoryName = '+';
       event.target.classList.remove('hover');
       event.target.blur();
     },
@@ -131,7 +134,7 @@ export default {
     width: 32px;
     box-sizing: border-box;
     transition: width 0.6s;
-    font: $font-sb-24;
+    font: $font-sb-16;
 
     &.hover {
       width: 220px;
